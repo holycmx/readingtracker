@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Editorial Sanctuary | Reading Tracker</title>
+  <!-- Google Fonts & Material Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom Tailwind Config Override -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            // Complete palette from design system
+            primary: '#086873',
+            'primary-container': '#58a4b0',
+            'primary-fixed': '#a3effb',
+            'primary-fixed-dim': '#87d2df',
+            'on-primary': '#ffffff',
+            'on-primary-container': '#00373e',
+            'on-primary-fixed': '#001f24',
+            'on-primary-fixed-variant': '#004f58',
+            secondary: '#565e72',
+            'secondary-container': '#dae2f9',
+            'secondary-fixed': '#dae2f9',
+            'secondary-fixed-dim': '#bec6dd',
+            'on-secondary': '#ffffff',
+            'on-secondary-container': '#5c6478',
+            'on-secondary-fixed': '#131b2c',
+            'on-secondary-fixed-variant': '#3f4759',
+            tertiary: '#7f534b',
+            'tertiary-container': '#c08d83',
+            'tertiary-fixed': '#ffdad4',
+            'tertiary-fixed-dim': '#f2b9af',
+            'on-tertiary': '#ffffff',
+            'on-tertiary-container': '#4b2821',
+            'on-tertiary-fixed': '#31120d',
+            'on-tertiary-fixed-variant': '#643c35',
+            error: '#ba1a1a',
+            'error-container': '#ffdad6',
+            'on-error': '#ffffff',
+            'on-error-container': '#93000a',
+            background: '#f8f9ff',
+            surface: '#f8f9ff',
+            'surface-dim': '#d7dae1',
+            'surface-bright': '#f8f9ff',
+            'surface-container': '#ebeef5',
+            'surface-container-low': '#f1f4fb',
+            'surface-container-high': '#e5e8ef',
+            'surface-container-highest': '#dfe2e9',
+            'surface-container-lowest': '#ffffff',
+            'surface-variant': '#dfe2e9',
+            'on-surface': '#181c21',
+            'on-surface-variant': '#3f484a',
+            outline: '#6f797b',
+            'outline-variant': '#bec8ca',
+            'inverse-surface': '#2d3136',
+            'inverse-on-surface': '#eef1f8',
+            'inverse-primary': '#87d2df',
+            'surface-tint': '#086873',
+          },
+          fontFamily: {
+            serif: ['Noto Serif', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          borderRadius: {
+            'xl': '0.75rem',
+            '2xl': '1rem',
+            '3xl': '1.5rem',
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom organic blobs and subtle shadows */
+    .blob-shape {
+      border-radius: 55% 45% 62% 38% / 45% 55% 45% 55%;
+      transition: border-radius 0.3s ease;
+    }
+    .card-lift {
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+    }
+    .card-lift:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px -8px rgba(24, 28, 33, 0.08);
+    }
+    .whisper-shadow {
+      box-shadow: 0px 12px 32px rgba(24, 28, 33, 0.04);
+    }
+    .reading-progress-glow {
+      background: linear-gradient(90deg, #086873, #58a4b0);
+    }
+    ::selection {
+      background-color: #a3effb;
+      color: #001f24;
+    }
+    /* No border lines — all separation via bg shifts and spacing */
+    .no-border-separator {
+      border: none;
+    }
+    .stat-blob {
+      border-radius: 65% 35% 70% 30% / 40% 55% 45% 60%;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-sans antialiased">
+
+  <!-- Sidebar: fixed with layered paper effect -->
+  <aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-40 flex flex-col whisper-shadow">
+    <div class="p-8 pb-6">
+      <h1 class="text-2xl font-serif font-extrabold tracking-tight bg-gradient-to-r from-primary to-primary-container bg-clip-text text-transparent">Editorial<br>Sanctuary</h1>
+      <p class="text-[11px] font-semibold tracking-[0.2em] uppercase text-outline mt-2">The Digital Curator</p>
+    </div>
+    <nav class="flex-1 px-4 space-y-1.5">
+      <a href="#" class="sidebar-nav flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 text-on-surface-variant hover:bg-surface-container-high group" data-page="dashboard">
+        <span class="material-symbols-outlined text-2xl">menu_book</span>
+        <span>Dashboard</span>
+      </a>
+      <a href="#" class="sidebar-nav flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 text-on-surface-variant hover:bg-surface-container-high group" data-page="library">
+        <span class="material-symbols-outlined text-2xl">library_books</span>
+        <span>My Library</span>
+      </a>
+      <a href="#" class="sidebar-nav flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 text-on-surface-variant hover:bg-surface-container-high group" data-page="stats">
+        <span class="material-symbols-outlined text-2xl">bar_chart</span>
+        <span>Stats & Insights</span>
+      </a>
+    </nav>
+    <div class="p-6 mt-auto border-t border-outline-variant/20">
+      <div class="flex items-center gap-3 p-3 bg-surface-container-lowest rounded-2xl whisper-shadow">
+        <div class="w-10 h-10 rounded-full bg-primary-fixed-dim/30 flex items-center justify-center text-primary">
+          <span class="material-symbols-outlined text-xl">person</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-bold truncate">Kobo Reader</p>
+          <p class="text-[11px] text-outline truncate">📚 38 books this year</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main content area -->
+  <main class="ml-64 min-h-screen bg-surface">
+    <!-- Sticky header with glass effect -->
+    <header class="sticky top-0 z-30 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/10 px-8 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="relative w-full max-w-md">
+        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-xl">search</span>
+        <input type="text" id="globalSearch" placeholder="Search your literary collection..." class="w-full bg-surface-container-low rounded-full py-2.5 pl-12 pr-5 text-sm font-sans focus:outline-none focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all">
+      </div>
+      <div class="flex items-center gap-4">
+        <button class="text-on-surface-variant hover:text-primary transition-colors">
+          <span class="material-symbols-outlined">notifications</span>
+        </button>
+        <button class="text-on-surface-variant hover:text-primary transition-colors">
+          <span class="material-symbols-outlined">settings</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Dynamic Page Container -->
+    <div id="app-root" class="p-8 md:p-10 max-w-7xl mx-auto space-y-10">
+      <!-- Content will be injected via JS -->
+      <div class="animate-pulse space-y-8">
+        <div class="h-40 bg-surface-container-high rounded-2xl"></div>
+        <div class="grid grid-cols-3 gap-6"><div class="h-32 bg-surface-container-high rounded-xl"></div><div class="h-32 bg-surface-container-high rounded-xl"></div><div class="h-32 bg-surface-container-high rounded-xl"></div></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Floating Action Button for quick add (contextual) -->
+  <button id="fabButton" class="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-br from-primary to-primary-container rounded-full shadow-2xl flex items-center justify-center text-white hover:scale-105 active:scale-95 transition-transform z-50 group">
+    <span class="material-symbols-outlined text-2xl">add</span>
+    <span class="absolute right-full mr-3 whitespace-nowrap bg-surface-container-high text-on-surface text-xs font-bold px-3 py-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Add new read</span>
+  </button>
+
+  <script>
+    // ---------- READING DATA (simulated from Kobo / user) ----------
+    let books = [
+      { id: 1, title: "The Midnight Library", author: "Matt Haig", cover: "https://picsum.photos/id/20/300/450", pages: 304, progress: 100, status: "finished", rating: 5, genre: "Fiction", finishedDate: "2024-02-10", format: "Hardcover", startDate: "2024-01-20" },
+      { id: 2, title: "Project Hail Mary", author: "Andy Weir", cover: "https://picsum.photos/id/29/300/450", pages: 476, progress: 100, status: "finished", rating: 5, genre: "Sci-Fi", finishedDate: "2024-01-05", format: "Ebook" },
+      { id: 3, title: "Circe", author: "Madeline Miller", cover: "https://picsum.photos/id/30/300/450", pages: 393, progress: 100, status: "finished", rating: 4, genre: "Fantasy", finishedDate: "2023-12-12", format: "Paperback" },
+      { id: 4, title: "The Song of Achilles", author: "Madeline Miller", cover: "https://picsum.photos/id/42/300/450", pages: 416, progress: 100, status: "finished", rating: 5, genre: "Fantasy", finishedDate: "2024-02-28", format: "Ebook" },
+      { id: 5, title: "Atomic Habits", author: "James Clear", cover: "https://picsum.photos/id/26/300/450", pages: 320, progress: 100, status: "finished", rating: 4, genre: "Self-help", finishedDate: "2024-03-01", format: "Audiobook" },
+      { id: 6, title: "Dune", author: "Frank Herbert", cover: "https://picsum.photos/id/22/300/450", pages: 688, progress: 42, status: "reading", rating: null, genre: "Sci-Fi", startDate: "2024-03-10", format: "Paperback" },
+      { id: 7, title: "Piranesi", author: "Susanna Clarke", cover: "https://picsum.photos/id/39/300/450", pages: 272, progress: 0, status: "to-read", rating: null, genre: "Fantasy", format: "Hardcover" },
+      { id: 8, title: "The Vanishing Half", author: "Brit Bennett", cover: "https://picsum.photos/id/43/300/450", pages: 352, progress: 0, status: "to-read", rating: null, genre: "Fiction", format: "Ebook" },
+      { id: 9, title: "Sapiens", author: "Yuval Noah Harari", cover: "https://picsum.photos/id/47/300/450", pages: 464, progress: 78, status: "reading", rating: null, genre: "History", startDate: "2024-02-15", format: "Audiobook" }
+    ];
+
+    // Helper: get stats
+    function computeStats() {
+      const finished = books.filter(b => b.status === 'finished');
+      const reading = books.filter(b => b.status === 'reading');
+      const totalPagesRead = finished.reduce((sum, b) => sum + b.pages, 0) + reading.filter(b => b.progress).reduce((sum, b) => sum + Math.floor(b.pages * (b.progress/100)), 0);
+      const streakDays = 14; // demo streak
+      const currentYear = new Date().getFullYear();
+      const finishedThisYear = finished.filter(b => new Date(b.finishedDate).getFullYear() === currentYear).length;
+      const avgRating = finished.filter(b => b.rating).reduce((acc, b) => acc + b.rating, 0) / (finished.filter(b => b.rating).length || 1);
+      const genreCount = {};
+      finished.forEach(b => { genreCount[b.genre] = (genreCount[b.genre] || 0) + 1; });
+      const topGenre = Object.entries(genreCount).sort((a,b)=>b[1]-a[1])[0]?.[0] || "Fiction";
+      return { totalBooks: books.length, finishedCount: finished.length, readingCount: reading.length, totalPagesRead, streakDays, finishedThisYear, avgRating: avgRating.toFixed(1), topGenre };
+    }
+
+    // Dashboard view (cozy editorial)
+    function renderDashboard() {
+      const stats = computeStats();
+      const currentlyReading = books.filter(b => b.status === 'reading');
+      const recentFinished = books.filter(b => b.status === 'finished').slice(0, 4);
+      const readingPulseData = [18, 24, 32, 45, 52, 38, 47]; // last 7 days pages mock
+      return `
+        <div class="space-y-12">
+          <!-- Hero reading now -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div class="lg:col-span-8 bg-surface-container-low rounded-3xl p-8 relative overflow-hidden flex flex-col md:flex-row gap-8 items-center">
+              <div class="absolute -right-20 -top-20 w-64 h-64 bg-primary-fixed/20 rounded-full blur-3xl"></div>
+              <div class="relative z-10 -mt-4 md:mt-0 w-40 h-56 md:w-48 md:h-72 shadow-2xl rounded-xl overflow-hidden rotate-1 hover:rotate-0 transition-transform">
+                <img src="${currentlyReading[0]?.cover || 'https://picsum.photos/id/104/300/450'}" alt="current read" class="w-full h-full object-cover">
+              </div>
+              <div class="flex-1 space-y-4">
+                <span class="text-[11px] font-bold tracking-wider text-primary uppercase">Currently curating</span>
+                <h2 class="text-3xl md:text-4xl font-serif font-black">${currentlyReading[0]?.title || 'Dune'}</h2>
+                <p class="text-lg italic text-on-surface-variant">${currentlyReading[0]?.author || 'Frank Herbert'}</p>
+                <div class="space-y-2">
+                  <div class="flex justify-between text-sm font-bold"><span>Reading Progress</span><span class="text-primary">${currentlyReading[0]?.progress || 42}%</span></div>
+                  <div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden"><div class="h-full reading-progress-glow rounded-full" style="width: ${currentlyReading[0]?.progress || 42}%"></div></div>
+                  <p class="text-xs text-outline">${Math.floor((currentlyReading[0]?.pages || 688) * ((currentlyReading[0]?.progress || 42)/100))} of ${currentlyReading[0]?.pages || 688} pages</p>
+                </div>
+                <button class="px-6 py-2.5 bg-gradient-to-r from-primary to-primary-container rounded-full text-white font-bold shadow-md hover:shadow-lg transition flex items-center gap-2 w-fit"><span class="material-symbols-outlined text-sm">edit_note</span>Log Progress</button>
+              </div>
+            </div>
+            <div class="lg:col-span-4 bg-surface-container-lowest rounded-3xl p-6 flex flex-col items-center text-center shadow-sm border border-outline-variant/10">
+              <h3 class="font-serif text-xl font-bold">${new Date().getFullYear()} Reading Goal</h3>
+              <div class="relative w-36 h-36 my-4"><svg class="w-full h-full -rotate-90"><circle cx="72" cy="72" r="62" fill="none" stroke="#e5e8ef" stroke-width="8"/><circle cx="72" cy="72" r="62" fill="none" stroke="#c08d83" stroke-dasharray="${2 * Math.PI * 62}" stroke-dashoffset="${2 * Math.PI * 62 * (1 - stats.finishedThisYear / 45)}" stroke-width="8" stroke-linecap="round"/></svg><div class="absolute inset-0 flex flex-col justify-center items-center"><span class="text-3xl font-serif font-black">${stats.finishedThisYear}</span><span class="text-[10px] uppercase font-bold text-outline">of 45 books</span></div></div>
+              <p class="text-sm font-medium">✨ ${stats.finishedThisYear >= 10 ? 'Great pace!' : 'Keep reading!'} You're on a ${stats.streakDays}-day streak</p>
+            </div>
+          </div>
+
+          <!-- stats blobs -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+            ${[ {label:"Books Read", value:stats.finishedCount, icon:"auto_stories", color:"primary"}, {label:"Pages Devoured", value:stats.totalPagesRead, icon:"description", color:"tertiary-container"}, {label:"Daily Streak", value:stats.streakDays, icon:"local_fire_department", color:"primary-container"}, {label:"Avg Rating", value:stats.avgRating, icon:"star", color:"secondary"} ].map(stat => `
+              <div class="bg-surface-container-low p-5 rounded-2xl flex items-center gap-4 card-lift"><div class="w-12 h-12 rounded-2xl bg-surface-container-lowest flex items-center justify-center text-${stat.color} stat-blob"><span class="material-symbols-outlined text-2xl">${stat.icon}</span></div><div><p class="text-[10px] font-bold tracking-wider text-outline uppercase">${stat.label}</p><p class="text-3xl font-serif font-black">${stat.value}</p></div></div>
+            `).join('')}
+          </div>
+
+          <!-- Reading Pulse (organic bar chart) -->
+          <div class="bg-surface-container-low rounded-3xl p-8">
+            <h3 class="text-2xl font-serif font-bold mb-2">📖 The Reading Pulse</h3>
+            <p class="text-on-surface-variant text-sm mb-8">Pages per day — organic rhythm</p>
+            <div class="flex items-end gap-3 h-40">
+              ${readingPulseData.map((val,idx) => `<div class="flex-1 flex flex-col items-center gap-2"><div class="w-full bg-primary-container/30 rounded-t-full blob-shape transition-all hover:bg-primary/50" style="height: ${val/70*100}%; min-height: 16px;"></div><span class="text-xs font-medium">${['M','T','W','T','F','S','S'][idx]}</span><span class="text-[9px] text-outline">${val}</span></div>`).join('')}
+            </div>
+          </div>
+
+          <!-- Recent finishes editorial grid -->
+          <div><div class="flex justify-between items-end mb-6"><h3 class="text-2xl font-serif font-bold">Recent Archives</h3><a href="#" data-nav="library" class="text-sm font-bold text-primary hover:underline">View all →</a></div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">${recentFinished.map(book => `<div class="group cursor-pointer"><div class="relative rounded-xl overflow-hidden shadow-sm card-lift"><img src="${book.cover}" class="aspect-[2/3] object-cover w-full" alt="${book.title}"><div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3"><span class="text-white text-[10px] font-bold">★ ${book.rating || 4}/5</span></div></div><h4 class="font-bold text-sm mt-2 truncate">${book.title}</h4><p class="text-xs text-outline">${book.author}</p></div>`).join('')}</div></div>
+        </div>
+      `;
+    }
+
+    // Library View: with filter & search
+    function renderLibrary(searchTerm = '') {
+      let filtered = books.filter(b => b.title.toLowerCase().includes(searchTerm.toLowerCase()) || b.author.toLowerCase().includes(searchTerm.toLowerCase()));
+      const statusFilter = new URLSearchParams(window.location.hash.split('?')[1]).get('status');
+      if (statusFilter && statusFilter !== 'all') filtered = filtered.filter(b => b.status === statusFilter);
+      return `
+        <div class="space-y-8">
+          <div><h2 class="text-4xl font-serif font-black">My Library</h2><p class="text-on-surface-variant mt-1">${filtered.length} cherished volumes</p></div>
+          <div class="flex flex-wrap gap-3 items-center justify-between border-b border-outline-variant/10 pb-4"><div class="flex gap-2 bg-surface-container-low p-1 rounded-full"><button data-status="all" class="lib-filter px-5 py-1.5 rounded-full text-sm font-bold transition-all ${!statusFilter || statusFilter === 'all' ? 'bg-surface-container-lowest text-primary shadow-sm' : 'text-on-surface-variant hover:bg-surface-container-high'}">All</button><button data-status="reading" class="lib-filter px-5 py-1.5 rounded-full text-sm font-bold transition-all ${statusFilter === 'reading' ? 'bg-surface-container-lowest text-primary shadow-sm' : 'text-on-surface-variant hover:bg-surface-container-high'}">Reading</button><button data-status="to-read" class="lib-filter px-5 py-1.5 rounded-full text-sm font-bold transition-all ${statusFilter === 'to-read' ? 'bg-surface-container-lowest text-primary shadow-sm' : 'text-on-surface-variant hover:bg-surface-container-high'}">To Read</button><button data-status="finished" class="lib-filter px-5 py-1.5 rounded-full text-sm font-bold transition-all ${statusFilter === 'finished' ? 'bg-surface-container-lowest text-primary shadow-sm' : 'text-on-surface-variant hover:bg-surface-container-high'}">Finished</button></div><span class="text-sm text-outline">${filtered.length} results</span></div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">${filtered.map(book => `
+            <div class="group cursor-pointer" data-book-id="${book.id}"><div class="relative rounded-xl overflow-hidden shadow-sm bg-surface-container-lowest p-1"><img src="${book.cover}" class="aspect-[2/3] object-cover w-full rounded-lg" alt="${book.title}"><div class="absolute top-3 right-3"><span class="backdrop-blur-sm bg-black/30 text-white text-[9px] font-bold px-2 py-0.5 rounded-full uppercase">${book.status === 'reading' ? '📖 Reading' : book.status === 'finished' ? '✓ Finished' : '📌 TBR'}</span></div></div><h3 class="font-serif font-bold text-lg mt-3 group-hover:text-primary transition">${book.title}</h3><p class="text-sm text-on-surface-variant italic">${book.author}</p>${book.status === 'reading' ? `<div class="mt-2 h-1 w-full bg-surface-container-high rounded-full overflow-hidden"><div class="h-full bg-tertiary-container w-[${book.progress}%]"></div><span class="text-[10px] font-medium">${book.progress}%</span></div>` : (book.rating ? `<div class="mt-2 flex text-tertiary gap-0.5 text-xs">${Array(5).fill().map((_,i)=> `<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' ${i<book.rating ? 1 : 0}">star</span>`).join('')}</div>` : '')}</div>
+          `).join('')}</div>
+          ${filtered.length === 0 ? '<div class="text-center py-16 bg-surface-container-low rounded-3xl"><span class="material-symbols-outlined text-5xl text-outline">menu_book</span><p class="mt-3">No books match your search. Add new reads!</p></div>' : ''}
+        </div>
+      `;
+    }
+
+    // Stats & Insights (with genre donut and format breakdown)
+    function renderStats() {
+      const stats = computeStats();
+      const finishedBooks = books.filter(b => b.status === 'finished');
+      const genreMap = {};
+      finishedBooks.forEach(b => { genreMap[b.genre] = (genreMap[b.genre] || 0) + 1; });
+      const topGenres = Object.entries(genreMap).sort((a,b)=>b[1]-a[1]).slice(0,3);
+      const formatCount = { Hardcover: 0, Paperback: 0, Ebook: 0, Audiobook: 0 };
+      books.forEach(b => { if(formatCount[b.format]) formatCount[b.format]++; else formatCount[b.format]=1; });
+      return `
+        <div class="space-y-10">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-surface-container-low rounded-3xl p-8"><h3 class="font-serif text-2xl font-bold">Literary Identity</h3><p class="text-outline text-sm mb-8">Genre distribution</p><div class="flex flex-wrap gap-6 items-center"><div class="relative w-40 h-40"><svg viewBox="0 0 40 40" class="w-full"><circle cx="20" cy="20" r="16" fill="none" stroke="#dae2f9" stroke-width="3"/><circle cx="20" cy="20" r="16" fill="none" stroke="#086873" stroke-dasharray="${topGenres[0]?.[1]/finishedBooks.length*100} 100" stroke-width="3"/><circle cx="20" cy="20" r="16" fill="none" stroke="#58a4b0" stroke-dasharray="${topGenres[1]?.[1]/finishedBooks.length*100} 100" stroke-dashoffset="-${topGenres[0]?.[1]/finishedBooks.length*100}" stroke-width="3"/></svg><div class="absolute inset-0 flex items-center justify-center"><span class="text-2xl font-serif font-bold">${finishedBooks.length}</span></div></div><div class="flex-1 space-y-2">${topGenres.map(g => `<div class="flex justify-between items-center"><span>${g[0]}</span><span class="font-bold">${Math.round(g[1]/finishedBooks.length*100)}%</span></div>`).join('')}</div></div></div>
+            <div class="bg-surface-container-low rounded-3xl p-8"><h3 class="font-serif text-2xl font-bold">Mediums & Formats</h3><div class="space-y-5 mt-4">${Object.entries(formatCount).map(([fmt, count]) => `<div><div class="flex justify-between text-sm"><span>${fmt}</span><span>${count} books</span></div><div class="h-1.5 bg-surface-container-highest rounded-full mt-1"><div class="h-full bg-primary rounded-full" style="width: ${(count/books.length)*100}%"></div></div></div>`).join('')}</div></div>
+          </div>
+          <div class="bg-surface-container-lowest rounded-3xl p-8 border border-outline-variant/10"><h3 class="font-serif text-2xl font-bold mb-6">Monthly Reading Intensity</h3><div class="flex items-end h-44 gap-3">${[12,18,24,32,28,41,35,42].map((val,i)=> `<div class="flex-1 flex flex-col items-center"><div class="w-full bg-primary-container/40 rounded-t-md" style="height: ${val/50*100}%"></div><span class="text-[10px] mt-2">${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'][i]}</span></div>`).join('')}</div><p class="text-center text-outline text-sm mt-6">You read most in ${['April','May','June'][Math.floor(Math.random()*3)]} 📚</p></div>
+        </div>
+      `;
+    }
+
+    let currentPage = 'dashboard';
+    function navigateTo(page, searchValue = '') {
+      currentPage = page;
+      const root = document.getElementById('app-root');
+      if (page === 'dashboard') root.innerHTML = renderDashboard();
+      else if (page === 'library') root.innerHTML = renderLibrary(searchValue);
+      else if (page === 'stats') root.innerHTML = renderStats();
+      attachEventHandlers();
+    }
+
+    function attachEventHandlers() {
+      document.querySelectorAll('.sidebar-nav').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const page = link.getAttribute('data-page');
+          navigateTo(page);
+          window.location.hash = page;
+        });
+      });
+      document.querySelectorAll('[data-nav="library"]').forEach(el => {
+        el.addEventListener('click', (e) => { e.preventDefault(); navigateTo('library'); window.location.hash = 'library'; });
+      });
+      const searchInput = document.getElementById('globalSearch');
+      if(searchInput) searchInput.addEventListener('input', (e) => { if(currentPage === 'library') navigateTo('library', e.target.value); });
+      document.querySelectorAll('.lib-filter').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const status = btn.getAttribute('data-status');
+          window.location.hash = `library?status=${status}`;
+          navigateTo('library', document.getElementById('globalSearch')?.value || '');
+        });
+      });
+      const fab = document.getElementById('fabButton');
+      if(fab) fab.addEventListener('click', () => alert("📖 In a real app, you'd sync with Kobo export or add a new read. For now, imagine adding your latest finished novel!"));
+    }
+
+    function handleHashChange() {
+      const hash = window.location.hash.slice(1) || 'dashboard';
+      const [page, query] = hash.split('?');
+      const searchParams = new URLSearchParams(query);
+      const status = searchParams.get('status');
+      if(page === 'library') {
+        navigateTo('library', document.getElementById('globalSearch')?.value || '');
+        if(status) setTimeout(() => {
+          const btns = document.querySelectorAll(`.lib-filter[data-status="${status}"]`);
+          if(btns.length) btns[0].click();
+        }, 20);
+      } else navigateTo(page);
+    }
+
+    window.addEventListener('hashchange', handleHashChange);
+    navigateTo('dashboard');
+    handleHashChange();
+  </script>
+</body>
+</html>
